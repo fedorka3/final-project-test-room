@@ -1,0 +1,54 @@
+const canvas = document.getElementById('canvas')
+const ctx = canvas.getContext("2d");
+
+class player {
+
+    constructor(x, y, dx, dy, speed) {
+        this.x = x
+        this.y = y
+        this.dx = dx
+        this.dy = dy
+        this.speed = speed
+    }
+    
+    draw() {
+        ctx.fillRect(this.x, this.y,50,50)
+
+        this.x += this.dx
+        this.y += this.dy
+    }
+}
+
+const plr = new player(40, 40, 0, 0, 5)
+
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'a') {
+      plr.dx = -plr.speed;
+    } else if (event.key === 'd') {
+      plr.dx = plr.speed;
+    } else if (event.key === 'w') {
+      plr.dy = -plr.speed;
+    } else if (event.key === 's') {
+      plr.dy = plr.speed;
+    }
+})
+
+window.addEventListener('keyup', (event) => {
+    if (event.key === 'a') {
+      plr.dx = 0;
+    } else if (event.key === 'd') {
+      plr.dx = 0;
+    } else if (event.key === 'w') {
+      plr.dy = 0;
+    } else if (event.key === 's') {
+      plr.dy = 0;
+    }
+})
+
+requestAnimationFrame(animate)
+
+function animate(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    plr.draw()
+    requestAnimationFrame(animate)
+}
